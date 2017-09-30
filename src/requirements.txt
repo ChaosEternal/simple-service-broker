@@ -1,0 +1,6 @@
+Flask
+werkzeug
+Flask-HTTPAuth
+SQLAlchemy
+Flask-SQLAlchemy
+flask-mysqldb
