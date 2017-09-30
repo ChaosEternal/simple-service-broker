@@ -4,3 +4,4 @@ Flask-HTTPAuth
 SQLAlchemy
 Flask-SQLAlchemy
 flask-mysqldb
+git+https://github.com/ChaosEternal/vcap-config.git
