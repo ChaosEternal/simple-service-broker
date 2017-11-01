@@ -18,11 +18,11 @@ vm_services = [{'id': '393eced5-d9d1-4fa9-85f5-d22a4e16098d',
                  'metadata': {"longDescription": "Simple Static Redis Service"},
                  'plans': [redis_uat_plan]},
                {'id': '0a41a1db-8557-4f1b-8448-950ad15c7d16',
-                 'name': 'simple-db2-service',
+                 'name': 'simple-mysql-service',
                  'description': 'Simle MySQL Service ',
                  'bindable': True,
                  'tags': ['mysql','relational'],
-                 'metadata': {"longDescription": "Simple Statis Mysql Service"},
+                 'metadata': {"longDescription": "Simple Static Mysql Service"},
                  'plans': [db2_uat_plan]}
 ]
 
