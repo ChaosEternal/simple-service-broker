@@ -23,3 +23,11 @@ def dashboard(instance_id):
     srvc = SrvcInst
     binding = SrvcBind
     return render_template("dashboard.html", cld=cld, srvc= srvc, binding = binding)
+
+@dasg_board.route("/status", methods=['GET'])
+def status():
+    cld = CldInfo
+    srvc = SrvcInst
+    binding = SrvcBind
+    return render_template("status.html", cld=cld, srvc= srvc, binding = binding)
+    
