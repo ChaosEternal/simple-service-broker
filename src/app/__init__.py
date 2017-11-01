@@ -1,12 +1,17 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, session
 from flask_sqlalchemy import SQLAlchemy
 
 from app.exceptions import ServiceBrokerException
+from flask_oauthlib.client import OAuth
+
+import os
 
 app = Flask(__name__)
 
-app.config.from_object('config')
 
+app.config.from_object('config')
+app.secret_key = os.urandom(24)
+oauth = OAuth(app)
 db = SQLAlchemy(app)
 
 @app.errorhandler(ServiceBrokerException)
