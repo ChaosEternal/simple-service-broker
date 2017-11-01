@@ -16,7 +16,9 @@ def handle_invalid_usage(error):
     return response
 
 from app.service_broker.controllers import service_broker as service_broker_module
+from app.dash_board.controllers import dash_board as dash_board_module
 
 app.register_blueprint(service_broker_module, url_prefix='')
+app.register_blueprint(dash_board_module, url_prefix=app.config["DASHBOARD_PREFIX"])
 
 #db.create_all()

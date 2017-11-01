@@ -11,3 +11,6 @@ else:
     SQLALCHEMY_DATABASE_URI = "sqlite:///tmp/xxx.db"
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+DASHBOARD_PREFIX="/cfbroker"
+SERVICE_INSTANCE_URI = "/dashboard/{instance_id}"
