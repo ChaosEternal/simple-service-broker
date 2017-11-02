@@ -1,68 +1,74 @@
 <!doctype html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Service Binding</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Service Binding</title>
 </head>
 <body>
-<h2>Cloud Info</h2>
-<table border="1">
-  <tr>
-    <th> cld_loc_info  </th>
-    <th> cld_loc_desc  </th>
-    <th> cld_loc_name  </th>
-    <th> cld_authz_edp </th>
-    <th> cld_token_edp </th>
-    <th> cld_oauth_id  </th>
-  </tr>
-  {% for entry in cld.query.all() %}
-  <tr>
-     <td> {{ entry.cld_loc_info  }}</td>
-     <td> {{ entry.cld_loc_desc  }}</td>
-     <td> {{ entry.cld_loc_name  }}</td>
-     <td> {{ entry.cld_authz_edp }}</td>
-     <td> {{ entry.cld_token_edp }}</td>
-     <td> {{ entry.cld_oauth_id  }}</td>
-  </tr>
-  {% endfor %}
-</table>
-<h2> Service Info </h2>
-<table border="1">
-  <tr>
-     <th> srvc_inst_id  </th>
-     <th> srvc_id       </th>
-     <th> plan          </th>
-     <th> args          </th>
-     <th> cld_info      </th>
-  </tr>
-  {% for entry in srvc.query.all() %}
-  <tr>
-     <td> {{ entry.srvc_inst_id  }}</td>
-     <td> {{ entry.srvc_id       }}</td>
-     <td> {{ entry.plan          }}</td>
-     <td> {{ entry.args          }}</td>
-     <td> {{ entry.cld_info      }}</td>
-  </tr>
-  {% endfor %}
-</table>
+  <h2>Current User</h2>
+      <ul>
+	{% for k in userinfo.keys() %}
+	<li> {{ k }} : {{ "%s"%userinfo[k] }}
+	{% endfor %}
+      </ul>
+  <h2>Cloud Info</h2>
+  <table border="1">
+    <tr>
+      <th> cld_loc_info  </th>
+      <th> cld_loc_desc  </th>
+      <th> cld_loc_name  </th>
+      <th> cld_authz_edp </th>
+      <th> cld_token_edp </th>
+      <th> cld_oauth_id  </th>
+    </tr>
+    {% for entry in cld.query.all() %}
+    <tr>
+      <td> {{ entry.cld_loc_info  }}</td>
+      <td> {{ entry.cld_loc_desc  }}</td>
+      <td> {{ entry.cld_loc_name  }}</td>
+      <td> {{ entry.cld_authz_edp }}</td>
+      <td> {{ entry.cld_token_edp }}</td>
+      <td> {{ entry.cld_oauth_id  }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  <h2> Service Info </h2>
+  <table border="1">
+    <tr>
+      <th> srvc_inst_id  </th>
+      <th> srvc_id       </th>
+      <th> plan          </th>
+      <th> args          </th>
+      <th> cld_info      </th>
+    </tr>
+    {% for entry in srvc.query.all() %}
+    <tr>
+      <td> {{ entry.srvc_inst_id  }}</td>
+      <td> {{ entry.srvc_id       }}</td>
+      <td> {{ entry.plan          }}</td>
+      <td> {{ entry.args          }}</td>
+      <td> {{ entry.cld_info      }}</td>
+    </tr>
+    {% endfor %}
+  </table>
 
-<h2> Binding Info </h2>
-<table border="1">
-  <tr>
-    <th> bind_id      </th> 
-    <th> srvc_inst_id </th> 
-    <th> srvc_id      </th> 
-    <th> args         </th> 
-    
-  </tr>
-  {% for entry in binding.query.all() %}
-  <tr>
-    <td> {{ entry.bind_id       }}</td>
-    <td> {{ entry.srvc_inst_id  }}</td>
-    <td> {{ entry.srvc_id       }}</td>
-    <td> {{ entry.args          }}</td>
-  </tr>
-  {% endfor %}
-</table>
+  <h2> Binding Info </h2>
+  <table border="1">
+    <tr>
+      <th> bind_id      </th> 
+      <th> srvc_inst_id </th> 
+      <th> srvc_id      </th> 
+      <th> args         </th> 
+      
+    </tr>
+    {% for entry in binding.query.all() %}
+    <tr>
+      <td> {{ entry.bind_id       }}</td>
+      <td> {{ entry.srvc_inst_id  }}</td>
+      <td> {{ entry.srvc_id       }}</td>
+      <td> {{ entry.args          }}</td>
+    </tr>
+    {% endfor %}
+  </table>
 
 </body>
 </html>
