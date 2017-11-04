@@ -11,61 +11,44 @@
 	{% endfor %}
       </ul>
   <h2>Cloud Info</h2>
-  <table border="1">
-    <tr>
-      <th> cld_loc_info  </th>
-      <th> cld_loc_desc  </th>
-      <th> cld_loc_name  </th>
-      <th> cld_authz_edp </th>
-      <th> cld_token_edp </th>
-      <th> cld_oauth_id  </th>
-    </tr>
-    {% for entry in cld.query.all() %}
-    <tr>
-      <td> {{ entry.cld_loc_info  }}</td>
-      <td> {{ entry.cld_loc_desc  }}</td>
-      <td> {{ entry.cld_loc_name  }}</td>
-      <td> {{ entry.cld_authz_edp }}</td>
-      <td> {{ entry.cld_token_edp }}</td>
-      <td> {{ entry.cld_oauth_id  }}</td>
-    </tr>
-    {% endfor %}
-  </table>
+  <ul>
+      <li> cld_loc_info :  {{ cld.cld_loc_info  }}</li>
+      <li> cld_loc_desc :  {{ cld.cld_loc_desc  }}</li>
+      <li> cld_loc_name :  {{ cld.cld_loc_name  }}</li>
+      <li> cld_authz_edp:  {{ cld.cld_authz_edp }}</li>
+      <li> cld_token_edp:  {{ cld.cld_token_edp }}</li>
+      <li> cld_oauth_id :  {{ cld.cld_oauth_id  }}</li>
+  </ul>
   <h2> Service Info </h2>
   <table border="1">
     <tr>
-      <th> srvc_inst_id  </th>
-      <th> srvc_id       </th>
-      <th> plan          </th>
-      <th> args          </th>
-      <th> cld_info      </th>
+      <td> Name       </td> <td>     {{srvc["name"]        }} </td>
     </tr>
-    {% for entry in srvc.query.all() %}
     <tr>
-      <td> {{ entry.srvc_inst_id  }}</td>
-      <td> {{ entry.srvc_id       }}</td>
-      <td> {{ entry.plan          }}</td>
-      <td> {{ entry.args          }}</td>
-      <td> {{ entry.cld_info      }}</td>
+      <td> Desc       </td> <td>     {{srvc["description"] }} </td>
     </tr>
-    {% endfor %}
+    <tr>
+      <td> All Plans  </td> <td><pre>{{srvc["plans_json"]       }} </pre> </td>
+    </tr>
+    <tr>
+      <td> Using Plan </td> <td><pre>{{plan_desc           }} </pre> </td>
+    </tr>
+    <tr>
+      <td> Args       </td> <td><pre>{{srvc["args"]        }} </pre> </td>
+    </tr>
   </table>
 
   <h2> Binding Info </h2>
   <table border="1">
     <tr>
-      <th> bind_id      </th> 
-      <th> srvc_inst_id </th> 
-      <th> srvc_id      </th> 
+      <th> App      </th> 
       <th> args         </th> 
       
     </tr>
-    {% for entry in binding.query.all() %}
+    {% for entry in binding %}
     <tr>
-      <td> {{ entry.bind_id       }}</td>
-      <td> {{ entry.srvc_inst_id  }}</td>
-      <td> {{ entry.srvc_id       }}</td>
-      <td> {{ entry.args          }}</td>
+      <td> <a href="{{ entry['app'] }}"> {{ entry["app_guid"]       }}</a></td>
+      <td> <pre>{{ entry["args"] }} </pre></td>
     </tr>
     {% endfor %}
   </table>
