@@ -2,7 +2,7 @@ from app import db
 from app.service_broker.models import CldInfo
 from app.exceptions import *
 
-import urllib2, json, uuid, random, array, base64
+import urllib.request, urllib.error, urllib.parse, json, uuid, random, array, base64
 from urllib2 import urlparse
 
 def normalize_uri(u, scheme="https", include_path = False):
@@ -18,12 +18,12 @@ def normalize_uri(u, scheme="https", include_path = False):
 
 def make_cld_info(cld_loc_info):
     try:
-        r = urllib2.urlopen(normalize_uri(cld_loc_info, scheme="https", include_path = True))
+        r = urllib.request.urlopen(normalize_uri(cld_loc_info, scheme="https", include_path = True))
         cld = json.load(r)
-    except Exception, e:
+    except Exception as e:
         raise ServiceBrokerException(422,
                                      "Error when fetching %s, reason: %s"%(cld_loc_info, str(e)))
-    print cld
+    print(cld)
     cld_oauth_id = str(uuid.uuid4())
     sr = random.SystemRandom()
     cld_oauth_sec = base64.b32encode(array.array("L", [sr.getrandbits(64) for x in range(16)]).tostring())

@@ -1,4 +1,4 @@
-import json, sys, urllib2, time
+import json, sys, urllib.request, urllib.error, urllib.parse, time
 
 from flask import Blueprint, request, g, abort, jsonify, render_template, session, redirect, url_for
 
@@ -75,7 +75,7 @@ class AuthCC():
             'token' not in session or \
             time.time() + 5 > session["token_expire"]:
                 login_url = url_for("%s.%s"%(self.bp, self.login), instance_id = instance_id)
-                return redirect(login_url + "?next=%s"%urllib2.quote(cur_url))
+                return redirect(login_url + "?next=%s"%urllib.parse.quote(cur_url))
             return func(*args, **argv)
         check.__name__ = func.__name__
         return check
@@ -100,7 +100,7 @@ def auth(instance_id):
         return "Error: %s, <p> Desc: %s"%(request.args.get("error"), request.args.get("error_description","")), 410
     cf_cc = cf_oauth_ctx.cf_cc
     resp = cf_cc.authorized_response()
-    if resp is None or not resp.has_key("access_token"):
+    if resp is None or "access_token" not in resp:
         return "410 access denied", 410
     session["token"] = resp["access_token"]
     session["token_expire"] = int(resp["expires_in"]) + time.time()
@@ -120,9 +120,9 @@ def dashboard(instance_id):
     srvc = SrvcInst.query.filter_by(srvc_inst_id = instance_id).first()
     cld = CldInfo.query.filter_by(cld_loc_info = srvc.cld_info).first()
     binding = SrvcBind.query.filter_by(srvc_inst_id = instance_id).all()
-    srvc_desc = dict(filter(lambda x: x["id"] == srvc.srvc_id, vm_services)[0])
+    srvc_desc = dict([x for x in vm_services if x["id"] == srvc.srvc_id][0])
     srvc_desc["args"] = json.dumps(json.loads(srvc.args), indent=2)
-    plan_desc = dict(filter(lambda x: x["id"] == srvc.plan, srvc_desc["plans"])[0])
+    plan_desc = dict([x for x in srvc_desc["plans"] if x["id"] == srvc.plan][0])
     srvc_desc["plans_json"] = json.dumps(srvc_desc["plans"], indent=2)
     binding_desc = [ {"app": url_for("dshbrd.appinfo", instance_id = instance_id, appid = json.loads(x.args)["app_guid"]),
                       "app_guid": json.loads(x.args)["app_guid"],

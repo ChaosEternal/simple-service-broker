@@ -62,7 +62,7 @@ def catalog():
 @auth.login_required
 def provision(instance_id):
     data = request.get_json()
-    if data is None or not data.has_key('service_id'):
+    if data is None or 'service_id' not in data:
         raise ServiceBrokerException(422, "Invalid request data")
 
     cloud_api_location = request.headers.get('X-Api-Info-Location', None)
@@ -95,7 +95,7 @@ def deprovision(instance_id):
 @service_broker.route('/v2/service_instances/<instance_id>/service_bindings/<binding_id>', methods=['PUT'])
 @auth.login_required
 def bind(instance_id, binding_id):
-    print >> sys.stderr, request.data
+    print(request.data, file=sys.stderr)
     data = request.get_json()
     if data is None:
         raise ServiceBrokerException(422, "invalid request data")
@@ -116,7 +116,7 @@ def bind(instance_id, binding_id):
 @service_broker.route('/v2/service_instances/<instance_id>/service_bindings/<binding_id>', methods=['DELETE'])
 @auth.login_required
 def unbind(instance_id, binding_id):
-    print >> sys.stderr, request.data
+    print(request.data, file=sys.stderr)
 
     srvc_bind = SrvcBind.query.filter_by(bind_id = binding_id).filter_by(srvc_inst_id = instance_id).first()
     db.session.delete(srvc_bind)
